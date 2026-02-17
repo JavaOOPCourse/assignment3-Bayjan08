@@ -1,35 +1,32 @@
-public class CloudStorageService extends Service
-        implements PremiumFeature, Billable {
+public class CloudStorageService extends Service implements PremiumFeature, Billable {
 
-    // TODO: declare premium field
+    public boolean premium;
 
-
-    // TODO: constructor
+    public CloudStorageService(String serviceName, int serviceId) {
+        super(serviceName, serviceId);
+        this.premium = false;
+    }
 
 
     @Override
     public void performService() {
 
-        // TODO:
-        // check if active
-        // print cloud access message
+        if (!isActive()) {
+            System.out.println(getServiceName() + " is inactive. Cannot access cloud.");
+            return;
+        }
+        System.out.println("Accessing cloud storage: " + getServiceName() + (premium ? " (PREMIUM)" : ""));
 
     }
 
     @Override
     public void upgradeToPremium() {
-
-        // TODO:
-        // enable premium
-        // print message
-
+        premium = true;
+        System.out.println(getServiceName() + " cloud storage upgraded to PREMIUM (more space/features).");
     }
 
     @Override
     public void generateBill() {
-
-        // TODO:
-        // print billing message
-
+        System.out.println("Generating bill for cloud storage: " + getServiceName() + (premium ? " (premium plan)" : " (basic plan)"));
     }
 }
